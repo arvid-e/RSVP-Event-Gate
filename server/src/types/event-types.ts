@@ -8,6 +8,7 @@ export interface AnswerData {
 }
 
 export interface UpdateAnswerData {
+  _id: string;
   name?: string;
   email?: string;
   link?: string;
@@ -18,7 +19,7 @@ export interface AnswerDataDocument
   extends AnswerData,
     Document {}
 
-export interface EventRepository {
+export interface AnswerRepository {
   findAllEvents(): Promise<AnswerDataDocument[]>;
   findById(id: string): Promise<AnswerDataDocument | null>;
   createEvent(eventData: AnswerData): Promise<AnswerDataDocument>;
@@ -26,7 +27,7 @@ export interface EventRepository {
   updateEvent(eventData: UpdateAnswerData): Promise<boolean>;
 }
 
-export interface EventService {
+export interface AnswerService {
   getAllEvents(): Promise<AnswerDataDocument[]>;
   getEventById(id: string): Promise<AnswerDataDocument | null>;
   createEvent(eventData: AnswerData): Promise<AnswerDataDocument | null>;
