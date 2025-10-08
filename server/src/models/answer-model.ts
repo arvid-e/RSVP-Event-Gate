@@ -1,22 +1,25 @@
 import { Schema, model } from 'mongoose';
-import { AnswerDataDocument } from '../types/event-types';
+import { AnswerDataDocument } from '../types/answer-types';
 
-const answerSchema = new Schema<AnswerDataDocument>({
+const answerSchema = new Schema<AnswerDataDocument>(
+  {
     name: {
-        type: String,
+      type: String,
     },
     email: {
-        type: String,
+      type: String,
     },
     link: {
-        type: String,
+      type: String,
     },
     date: {
-        type: String,
+      type: String,
     },
-}, {
-    timestamps: true, 
-});
+  },
+  {
+    timestamps: true,
+  }
+);
 
 const AnswerModel = model<AnswerDataDocument>('Event', answerSchema);
 export default AnswerModel;

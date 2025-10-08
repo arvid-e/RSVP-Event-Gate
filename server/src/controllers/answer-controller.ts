@@ -1,6 +1,8 @@
 import { Request, Response } from 'express';
 
 export class EventController {
+  constructor(private answerService: AnswerServiceImp) {}
+
   public createEvent = (req: Request, res: Response): void => {};
 
   public getAllEvents = (req: Request, res: Response): void => {};
