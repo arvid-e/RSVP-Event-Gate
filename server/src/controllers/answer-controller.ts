@@ -43,13 +43,14 @@ export class AnswerController {
 
   public createAnswer = catchAsync(async (req: Request, res: Response) => {
     const answerData: AnswerData = req.body;
+
     const answer = await this.answerService.createEvent(answerData);
 
     res.status(201).json({
       status: 'success',
       message: 'Answer created successfully!',
       data: {
-        answer,
+        answer: answer,
       },
     });
   });

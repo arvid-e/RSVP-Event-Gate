@@ -9,11 +9,11 @@ import {
 export class MongoDBAnswerRepository implements AnswerRepository {
   constructor(private answerModel: typeof AnswerModel) {}
 
-  async findAllEvents(): Promise<AnswerDataDocument[]> {
+  async findAllAnswers(): Promise<AnswerDataDocument[]> {
     return await this.answerModel.find();
   }
 
-  async findById(id: string): Promise<AnswerDataDocument | null> {
+  async findAnswerById(id: string): Promise<AnswerDataDocument | null> {
     const event = await this.answerModel.findById(id);
     if (event) {
       return event.toObject();
@@ -21,17 +21,17 @@ export class MongoDBAnswerRepository implements AnswerRepository {
     return event;
   }
 
-  async createEvent(eventData: AnswerData): Promise<AnswerDataDocument> {
+  async createAnswer(eventData: AnswerData): Promise<AnswerDataDocument> {
     return (await this.answerModel.create(eventData)).toObject();
   }
 
-  async deleteEvent(_id: string): Promise<boolean> {
+  async deleteAnswer(_id: string): Promise<boolean> {
     const deleted = await this.answerModel.deleteOne({ _id });
     return deleted.deletedCount > 0;
   }
 
-  async updateEvent(eventData: UpdateAnswerData): Promise<boolean> {
-    const { _id, ...updateFields } = eventData;
+  async updateAnswer(answerData: UpdateAnswerData): Promise<boolean> {
+    const { _id, ...updateFields } = answerData;
     const updated = await this.answerModel.updateOne(
       { _id },
       { $set: updateFields }

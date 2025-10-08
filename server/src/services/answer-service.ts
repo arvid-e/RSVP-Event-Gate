@@ -7,25 +7,25 @@ import {
 } from '../types/answer-types';
 
 export class AnswerServiceImp implements AnswerService {
-  constructor(private eventRepository: AnswerRepository) {}
+  constructor(private answerRepository: AnswerRepository) {}
 
-  async getAllEvents(): Promise<AnswerDataDocument[]> {
-    return this.eventRepository.findAllEvents();
+  async getAllAnswers(): Promise<AnswerDataDocument[]> {
+    return this.answerRepository.findAllAnswers();
   }
 
-  async getEventById(id: string): Promise<AnswerDataDocument | null> {
-    return this.eventRepository.findById(id);
+  async getAnswerById(id: string): Promise<AnswerDataDocument | null> {
+    return this.answerRepository.findAnswerById(id);
   }
 
-  async createEvent(eventData: AnswerData): Promise<AnswerDataDocument | null> {
-    return this.eventRepository.createEvent(eventData);
+  async createAnswer(eventData: AnswerData): Promise<AnswerDataDocument | null> {
+    return this.answerRepository.createAnswer(eventData);
   }
 
-  async deleteEvent(id: string): Promise<boolean> {
-    return this.eventRepository.deleteEvent(id);
+  async deleteAnswer(id: string): Promise<boolean> {
+    return this.answerRepository.deleteAnswer(id);
   }
 
-  async updateEvent(eventData: UpdateAnswerData): Promise<boolean> {
-    return this.eventRepository.updateEvent(eventData);
+  async updateAnswer(answerData: UpdateAnswerData): Promise<boolean> {
+    return this.answerRepository.updateAnswer(answerData);
   }
 }

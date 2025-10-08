@@ -20,17 +20,17 @@ export interface AnswerDataDocument
     Document {}
 
 export interface AnswerRepository {
-  findAllEvents(): Promise<AnswerDataDocument[]>;
-  findById(id: string): Promise<AnswerDataDocument | null>;
-  createEvent(eventData: AnswerData): Promise<AnswerDataDocument>;
-  deleteEvent(id: string): Promise<boolean>;
-  updateEvent(eventData: UpdateAnswerData): Promise<boolean>;
+  findAllAnswers(): Promise<AnswerDataDocument[]>;
+  findAnswerById(id: string): Promise<AnswerDataDocument | null>;
+  createAnswer(eventData: AnswerData): Promise<AnswerDataDocument>;
+  deleteAnswer(id: string): Promise<boolean>;
+  updateAnswer(eventData: UpdateAnswerData): Promise<boolean>;
 }
 
 export interface AnswerService {
-  getAllEvents(): Promise<AnswerDataDocument[]>;
-  getEventById(id: string): Promise<AnswerDataDocument | null>;
-  createEvent(eventData: AnswerData): Promise<AnswerDataDocument | null>;
-  deleteEvent(id: string): Promise<boolean>;
-  updateEvent(eventData: UpdateAnswerData): Promise<boolean>;
+  getAllAnswers(): Promise<AnswerDataDocument[]>;
+  getAnswerById(id: string): Promise<AnswerDataDocument | null>;
+  createAnswer(eventData: AnswerData): Promise<AnswerDataDocument | null>;
+  deleteAnswer(id: string): Promise<boolean>;
+  updateAnswer(eventData: UpdateAnswerData): Promise<boolean>;
 }
