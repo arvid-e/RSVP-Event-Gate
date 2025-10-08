@@ -6,7 +6,7 @@ import { catchAsync } from '../utils/catch-asynch';
 export class AnswerController {
   constructor(private answerService: AnswerServiceImp) {}
 
-  public getAllAnswer = catchAsync(async (req: Request, res: Response) => {
+  public getAllAnswers = catchAsync(async (req: Request, res: Response) => {
     const answers = await this.answerService.getAllEvents();
 
     res.status(200).json({
@@ -54,7 +54,7 @@ export class AnswerController {
     });
   });
 
-  public deleteEvent = catchAsync(async (req: Request, res: Response) => {
+  public deleteAnswer = catchAsync(async (req: Request, res: Response) => {
     const answerId = req.params.id;
     const deleted = await this.answerService.deleteEvent(answerId);
 

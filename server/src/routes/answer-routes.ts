@@ -1,23 +1,22 @@
-
+import { Router } from 'express';
+import { AnswerController } from '../controllers/answer-controller';
 import AnswerModel from '../models/answer-model';
 import { MongoDBAnswerRepository } from '../repositories/mongodb-repository';
-//import { AnswerService } from '../services/answer-service';
-import { Router } from 'express';
-import { EventController } from '../controllers/answer-controller';
+import { AnswerServiceImp } from '../services/answer-service';
 
 const router = Router();
-const eventRepository = new EventRepository(EventModel);
-const eventService = new EventService(eventRepository);
-const controller = new EventController(eventService);
+const mongoDBAnswerRepository = new MongoDBAnswerRepository(AnswerModel);
+const answerService = new AnswerServiceImp(mongoDBAnswerRepository);
+const controller = new AnswerController(answerService);
 
-router.get('/', controller.getAllEvents);
+router.get('/', controller.getAllAnswers);
 
-router.post('/', controller.createEvent);
+router.post('/', controller.getAnswerById);
 
-router.get('/:id', controller.getEventById);
+router.get('/:id', controller.createAnswer);
 
-router.patch('/:id', controller.editEvent);
+router.patch('/:id', controller.updateAnswer);
 
-router.delete('/:id', controller.deleteEvent);
+router.delete('/:id', controller.deleteAnswer);
 
 export default router;
