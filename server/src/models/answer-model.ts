@@ -21,5 +21,5 @@ const answerSchema = new Schema<AnswerDataDocument>(
   }
 );
 
-const AnswerModel = model<AnswerDataDocument>('Event', answerSchema);
+const AnswerModel = model<AnswerDataDocument>('Answer', answerSchema);
 export default AnswerModel;

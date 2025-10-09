@@ -17,8 +17,8 @@ export class AnswerServiceImp implements AnswerService {
     return this.answerRepository.findAnswerById(id);
   }
 
-  async createAnswer(eventData: AnswerData): Promise<AnswerDataDocument | null> {
-    return this.answerRepository.createAnswer(eventData);
+  async createAnswer(answerData: AnswerData): Promise<AnswerDataDocument | null> {
+    return this.answerRepository.createAnswer(answerData);
   }
 
   async deleteAnswer(id: string): Promise<boolean> {

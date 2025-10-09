@@ -7,7 +7,7 @@ export class AnswerController {
   constructor(private answerService: AnswerServiceImp) {}
 
   public getAllAnswers = catchAsync(async (req: Request, res: Response) => {
-    const answers = await this.answerService.getAllEvents();
+    const answers = await this.answerService.getAllAnswers();
 
     res.status(200).json({
       status: 'success',
@@ -20,7 +20,7 @@ export class AnswerController {
 
   public getAnswerById = catchAsync(async (req: Request, res: Response) => {
     const answerId = req.params.id;
-    const answer = await this.answerService.getEventById(answerId);
+    const answer = await this.answerService.getAnswerById(answerId);
 
     if (answer == null) {
       res.status(404).json({
@@ -42,9 +42,27 @@ export class AnswerController {
   });
 
   public createAnswer = catchAsync(async (req: Request, res: Response) => {
+    if (!req.body) {
+      return res
+        .status(400)
+        .json({ status: 'error', message: 'Missing request object.' });
+    }
+
     const answerData: AnswerData = req.body;
 
-    const answer = await this.answerService.createEvent(answerData);
+    if (
+      !answerData ||
+      !answerData.name ||
+      !answerData.email ||
+      !answerData.date
+    ) {
+      return res.status(400).json({
+        status: 'error',
+        message: 'Missing required fields in request object.',
+      });
+    }
+
+    const answer = await this.answerService.createAnswer(answerData);
 
     res.status(201).json({
       status: 'success',
@@ -57,7 +75,7 @@ export class AnswerController {
 
   public deleteAnswer = catchAsync(async (req: Request, res: Response) => {
     const answerId = req.params.id;
-    const deleted = await this.answerService.deleteEvent(answerId);
+    const deleted = await this.answerService.deleteAnswer(answerId);
 
     if (deleted) {
       res.status(200).json({
@@ -70,7 +88,7 @@ export class AnswerController {
     } else {
       res.status(404).json({
         status: 'fail',
-        message: 'Event deletion failed!',
+        message: 'Answer deletion failed!',
         data: {
           id: answerId,
         },
@@ -86,7 +104,7 @@ export class AnswerController {
       ...updateFields,
     };
 
-    const edited = await this.answerService.updateEvent(answerData);
+    const edited = await this.answerService.updateAnswer(answerData);
 
     if (edited) {
       res.status(200).json({

@@ -14,15 +14,16 @@ export class MongoDBAnswerRepository implements AnswerRepository {
   }
 
   async findAnswerById(id: string): Promise<AnswerDataDocument | null> {
-    const event = await this.answerModel.findById(id);
-    if (event) {
-      return event.toObject();
+    const answer = await this.answerModel.findById(id);
+    if (answer) {
+      return answer.toObject();
     }
-    return event;
+    return answer;
   }
 
-  async createAnswer(eventData: AnswerData): Promise<AnswerDataDocument> {
-    return (await this.answerModel.create(eventData)).toObject();
+  async createAnswer(answerData: AnswerData): Promise<AnswerDataDocument> {
+    console.log(answerData);
+    return (await this.answerModel.create(answerData)).toObject();
   }
 
   async deleteAnswer(_id: string): Promise<boolean> {
