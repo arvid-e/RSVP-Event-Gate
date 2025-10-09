@@ -4,9 +4,11 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
+    "client:build": "cd client && npm run build",
     "client:dev": "npm run dev --prefix client",
+    "server:build:": "cd server && npm run build",
     "server:start": "npm start --prefix server",
-    "dev": "npm run server:start & npm run client:dev",
+    "server:dev": "npm run server:start & npm run client:dev",
     "lint": "eslint ."
   },
   "devDependencies": {
