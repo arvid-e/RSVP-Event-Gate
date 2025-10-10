@@ -25,6 +25,7 @@ export default defineConfig({
         '**/client/**', 
         '**/*.config.ts',
         '**/*.d.ts',
+        'dist/**'
       ]
     },
     
