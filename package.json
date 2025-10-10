@@ -9,7 +9,8 @@
     "server:build:": "cd server && npm run build",
     "server:start": "npm start --prefix server",
     "server:dev": "npm run server:start & npm run client:dev",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "test": "cd server && npm run test"
   },
   "devDependencies": {
     "@eslint/js": "^9.36.0",
