@@ -63,10 +63,9 @@
 
         - name: Upload Server Artifact
           uses: actions/upload-artifact@v4
-
           with:
             name: server-artifact
-            path: dist/
+            path: server/dist/
             
         - name: Upload Client Artifact
           uses: actions/upload-artifact@v4
