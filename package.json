@@ -10,7 +10,8 @@
     "server:start": "npm start --prefix server",
     "server:dev": "npm run server:start & npm run client:dev",
     "lint": "eslint .",
-    "test": "cd server && npm run test"
+    "test": "cd server && npm run test",
+    "coverage": "cd server && npm run coverage"
   },
   "devDependencies": {
     "@eslint/js": "^9.36.0",
