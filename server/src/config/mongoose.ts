@@ -1,13 +1,5 @@
 import mongoose from 'mongoose';
-
-function isErrorWithMessage(err: unknown): err is { message: string } {
-  return (
-    typeof err === 'object' &&
-    err !== null &&
-    'message' in err &&
-    typeof (err as { message: string }).message === 'string'
-  );
-}
+import { isErrorWithMessage } from '../utils/errors';
 
 export const connectDB = async () => {
   try {
