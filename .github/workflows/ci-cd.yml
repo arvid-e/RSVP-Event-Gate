@@ -6,7 +6,7 @@
         - feat/ci-cd-pipeline-setup
 
   jobs:
-  
+
   # CI JOB: Build and Test
     build-and-test:
       runs-on: ubuntu-latest
@@ -34,10 +34,10 @@
           run: npm run test 
 
         - name: Build Backend/Server Package
-          run: npm run build 
+          run: npm run server:build
           
         - name: Build Frontend/Client Assets
-          run: npm run build:client
+          run: npm run client:build
 
         - name: Upload Backend Artifact
           uses: actions/upload-artifact@v4
