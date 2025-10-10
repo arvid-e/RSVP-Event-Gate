@@ -6,7 +6,7 @@ on:
   push:
     # Run pipeline on every push to the main branch
     branches:
-      - main
+      - feat/ci-cd-pipeline-setup
 
 jobs:
   # 2. CI JOB: Build and Test
