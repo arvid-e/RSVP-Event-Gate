@@ -1,12 +1,11 @@
 import { NextFunction, Request, RequestHandler, Response } from 'express';
 
 // Define a type for asynchronous handler functions (e.g. controller functions)
-// They are functions that take req, res, next and return a Promise.
 type AsyncHandler = (
   req: Request,
   res: Response,
   next: NextFunction
-) => Promise<any>;
+) => Promise<void>;
 
 /**
  * A higher-order function to wrap asynchronous Express route handlers.
