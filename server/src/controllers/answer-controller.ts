@@ -43,7 +43,7 @@ export class AnswerController {
 
   public createAnswer = catchAsync(async (req: Request, res: Response) => {
     if (!req.body) {
-      return res
+      res
         .status(400)
         .json({ status: 'error', message: 'Missing request object.' });
     }
@@ -56,7 +56,7 @@ export class AnswerController {
       !answerData.email ||
       !answerData.date
     ) {
-      return res.status(400).json({
+      res.status(400).json({
         status: 'error',
         message: 'Missing required fields in request object.',
       });
