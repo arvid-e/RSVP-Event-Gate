@@ -5,46 +5,48 @@
       branches:
         - feat/ci-cd-pipeline-setup
 
+  jobs:
+  
   # CI JOB: Build and Test
-  build-and-test:
-    runs-on: ubuntu-latest
-    
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
+    build-and-test:
+      runs-on: ubuntu-latest
       
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20.x' 
-          cache: 'npm'
-      
-      - name: Install Root Dependencies
-        run: npm ci 
+      steps:
+        - name: Checkout Code
+          uses: actions/checkout@v4
         
-      - name: Install Server Dependencies
-        run: cd server && npm ci 
-      
-      - name: Run Lints and Type Checks (Server & Client)
-        run: npm run lint
-      
-      - name: Run Unit Tests (Server & Client)
-        run: npm run test 
-
-      - name: Build Backend/Server Package
-        run: npm run build 
+        - name: Set up Node.js
+          uses: actions/setup-node@v4
+          with:
+            node-version: '20.x' 
+            cache: 'npm'
         
-      - name: Build Frontend/Client Assets
-        run: npm run build:client
-
-      - name: Upload Backend Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: server-artifact
-          path: dist/
+        - name: Install Root Dependencies
+          run: npm ci 
           
-      - name: Upload Frontend Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: client-artifact
-          path: client/dist
+        - name: Install Server Dependencies
+          run: cd server && npm ci 
+        
+        - name: Run Lints and Type Checks (Server & Client)
+          run: npm run lint
+        
+        - name: Run Unit Tests (Server & Client)
+          run: npm run test 
+
+        - name: Build Backend/Server Package
+          run: npm run build 
+          
+        - name: Build Frontend/Client Assets
+          run: npm run build:client
+
+        - name: Upload Backend Artifact
+          uses: actions/upload-artifact@v4
+          with:
+            name: server-artifact
+            path: dist/
+            
+        - name: Upload Frontend Artifact
+          uses: actions/upload-artifact@v4
+          with:
+            name: client-artifact
+            path: client/dist
