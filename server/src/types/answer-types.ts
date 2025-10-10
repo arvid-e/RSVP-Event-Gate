@@ -22,7 +22,7 @@ export interface AnswerDataDocument
 export interface AnswerRepository {
   findAllAnswers(): Promise<AnswerDataDocument[]>;
   findAnswerById(id: string): Promise<AnswerDataDocument | null>;
-  createAnswer(answerData: AnswerData): Promise<AnswerDataDocument>;
+  createAnswer(answerData: AnswerData): Promise<AnswerDataDocument | null>;
   deleteAnswer(id: string): Promise<boolean>;
   updateAnswer(answerData: UpdateAnswerData): Promise<boolean>;
 }
