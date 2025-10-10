@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { beforeEach, describe, Mocked, vi } from 'vitest';
 import { AnswerServiceImp } from '../services/answer-service';
-import { AnswerData, AnswerDataDocument } from '../types/answer-types';
+import { AnswerData, AnswerDataDocument, UpdateAnswerData } from '../types/answer-types';
 import { AnswerController } from './answer-controller';
 
 type MockAnswerServiceImp = Mocked<AnswerServiceImp>;
@@ -10,6 +10,12 @@ const mockAnswers: AnswerData[] = [
   { name: 'Tester', email: 'tester@test.com', date: '2020/01/01' },
   { name: 'Tester2', email: 'tester2@test.com', date: '2020/02/02' },
 ];
+
+const mockUpdateData: UpdateAnswerData = {
+    _id: 'valid-id-123',
+    name: 'tester',
+    email: 'new@email.com'
+}
 
 let mockAnswerService: MockAnswerServiceImp;
 let answerController: AnswerController;
@@ -41,7 +47,7 @@ beforeEach(() => {
 });
 
 describe('getAllAnswers()', async () => {
-  it('should fetch all answers and return a 200 success response', async () => {
+  it('should fetch all answers and return a 201 success response', async () => {
     mockAnswerService.getAllAnswers.mockResolvedValue(
       mockAnswers as AnswerDataDocument[]
     );
@@ -60,6 +66,28 @@ describe('getAllAnswers()', async () => {
       data: { answers: mockAnswers },
     });
     expect(mockNext).not.toHaveBeenCalled();
+  });
+
+  describe('createAnswer()', () => {
+    it('should create an answer and return a 200 success response', async () => {
+     
+      mockReq.body = mockUpdateData;
+      mockAnswerService.createAnswer.mockResolvedValue(mockUpdateData as AnswerDataDocument);
+
+      await answerController.createAnswer(
+        mockReq as Request,
+        mockRes as Response,
+        mockNext
+      );
+
+      expect(mockRes.status).toHaveBeenCalledWith(201);
+      expect(mockRes.json).toHaveBeenCalledWith({
+        status: 'success',
+        message: 'Answer created successfully!',
+        data: { answer: mockUpdateData },
+      });
+      expect(mockNext).not.toHaveBeenCalled();
+    });
   });
 
   describe('getAnswerById()', () => {
