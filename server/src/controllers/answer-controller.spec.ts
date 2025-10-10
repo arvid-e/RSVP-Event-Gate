@@ -42,7 +42,9 @@ beforeEach(() => {
 
 describe('getAllAnswers()', async () => {
   it('should fetch all answers and return a 200 success response', async () => {
-    mockAnswerService.getAllAnswers.mockResolvedValue(mockAnswers as AnswerDataDocument[]);
+    mockAnswerService.getAllAnswers.mockResolvedValue(
+      mockAnswers as AnswerDataDocument[]
+    );
 
     await answerController.getAllAnswers(
       mockReq as Request,
@@ -58,5 +60,31 @@ describe('getAllAnswers()', async () => {
       data: { answers: mockAnswers },
     });
     expect(mockNext).not.toHaveBeenCalled();
+  });
+
+  describe('getAnswerById()', () => {
+    it('should fetch one answer and return a 200 success response', async () => {
+      const mockId = 'valid-id-123';
+      mockReq.params = { id: mockId };
+
+      mockAnswerService.getAnswerById.mockResolvedValue(
+        mockAnswers[0] as AnswerDataDocument
+      );
+
+      await answerController.getAnswerById(
+        mockReq as Request,
+        mockRes as Response,
+        mockNext
+      );
+
+      expect(mockAnswerService.getAnswerById).toHaveBeenCalledWith(mockId);
+      expect(mockRes.status).toHaveBeenCalledWith(201);
+      expect(mockRes.json).toHaveBeenCalledWith({
+        status: 'success',
+        message: 'Answer fetched successfully!',
+        data: { answer: mockAnswers[0] },
+      });
+      expect(mockNext).not.toHaveBeenCalled();
+    });
   });
 });
