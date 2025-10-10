@@ -1,15 +1,11 @@
-# Workflow to run tests, build the TypeScript project, and publish to npm.
+  name: CI/CD Pipeline
 
-name: CI/CD Pipeline
+  on:
+    push:
+      branches:
+        - feat/ci-cd-pipeline-setup
 
-on:
-  push:
-    # Run pipeline on every push to the main branch
-    branches:
-      - feat/ci-cd-pipeline-setup
-
-jobs:
-  # 2. CI JOB: Build and Test
+  # CI JOB: Build and Test
   build-and-test:
     runs-on: ubuntu-latest
     
@@ -23,21 +19,32 @@ jobs:
           node-version: '20.x' 
           cache: 'npm'
       
-      - name: Install Dependencies
-        run: npm ci
+      - name: Install Root Dependencies
+        run: npm ci 
+        
+      - name: Install Server Dependencies
+        run: cd server && npm ci 
       
-      - name: Run ESLint and Type Checks
+      - name: Run Lints and Type Checks (Server & Client)
         run: npm run lint
       
-      - name: Run Unit Tests
+      - name: Run Unit Tests (Server & Client)
         run: npm run test 
 
-      - name: Build TypeScript to JavaScript
+      - name: Build Backend/Server Package
         run: npm run build 
         
-      - name: Upload Build Artifacts
+      - name: Build Frontend/Client Assets
+        run: npm run build:client
+
+      - name: Upload Backend Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: node-artifact
+          name: server-artifact
           path: dist/
-
+          
+      - name: Upload Frontend Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: client-artifact
+          path: client/dist
