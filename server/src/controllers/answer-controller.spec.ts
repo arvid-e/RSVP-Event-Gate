@@ -114,6 +114,28 @@ describe('getAllAnswers()', async () => {
       });
       expect(mockNext).not.toHaveBeenCalled();
     });
+
+    it('should return 404 on invalid id', async () => {
+      const mockId = 'invalid-id-123';
+      mockReq.params = { id: mockId };
+
+      mockAnswerService.getAnswerById.mockResolvedValue(null);
+
+      await answerController.getAnswerById(
+        mockReq as Request,
+        mockRes as Response,
+        mockNext
+      );
+
+      expect(mockAnswerService.getAnswerById).toHaveBeenCalledWith(mockId);
+      expect(mockRes.status).toHaveBeenCalledWith(404);
+      expect(mockRes.json).toHaveBeenCalledWith({
+        status: 'fail',
+        message: 'Answer not found.',
+        data: { answer: null },
+      });
+      expect(mockNext).not.toHaveBeenCalled();
+    });
   });
 
   describe('deleteAnswer()', () => {
@@ -134,6 +156,28 @@ describe('getAllAnswers()', async () => {
       expect(mockRes.json).toHaveBeenCalledWith({
         status: 'success',
         message: 'Answer deleted successfully!',
+        data: { "id": mockId },
+      });
+      expect(mockNext).not.toHaveBeenCalled();
+    });
+
+    it('should return 404 on invalid id', async () => {
+      const mockId = 'invvalid-id-123';
+      mockReq.params = { id: mockId };
+
+      mockAnswerService.deleteAnswer.mockResolvedValue(false);
+
+      await answerController.deleteAnswer(
+        mockReq as Request,
+        mockRes as Response,
+        mockNext
+      );
+
+      expect(mockAnswerService.deleteAnswer).toHaveBeenCalledWith(mockId);
+      expect(mockRes.status).toHaveBeenCalledWith(404);
+      expect(mockRes.json).toHaveBeenCalledWith({
+        status: 'fail',
+        message: 'Answer deletion failed.',
         data: { "id": mockId },
       });
       expect(mockNext).not.toHaveBeenCalled();
@@ -159,6 +203,29 @@ describe('getAllAnswers()', async () => {
       expect(mockRes.json).toHaveBeenCalledWith({
         status: 'success',
         message: 'Answer updated successfully!',
+        data: { "id": mockId },
+      });
+      expect(mockNext).not.toHaveBeenCalled();
+    });
+
+    it('should return 404 on unsuccessfull update', async () => {
+      const mockId = 'invvalid-id-123';
+      mockReq.params = { id: mockId };
+      mockReq.body = mockUpdateData;
+
+      mockAnswerService.updateAnswer.mockResolvedValue(false);
+
+      await answerController.updateAnswer(
+        mockReq as Request,
+        mockRes as Response,
+        mockNext
+      );
+
+      expect(mockAnswerService.updateAnswer).toHaveBeenCalledWith(mockUpdateData);
+      expect(mockRes.status).toHaveBeenCalledWith(404);
+      expect(mockRes.json).toHaveBeenCalledWith({
+        status: 'fail',
+        message: 'Answer update failed.',
         data: { "id": mockId },
       });
       expect(mockNext).not.toHaveBeenCalled();

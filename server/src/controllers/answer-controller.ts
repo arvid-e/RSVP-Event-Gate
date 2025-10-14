@@ -25,7 +25,7 @@ export class AnswerController {
     if (answer == null) {
       res.status(404).json({
         status: 'fail',
-        message: 'Answer not found!',
+        message: 'Answer not found.',
         data: {
           answer,
         },
@@ -42,12 +42,6 @@ export class AnswerController {
   });
 
   public createAnswer = catchAsync(async (req: Request, res: Response) => {
-    if (!req.body) {
-      res
-        .status(400)
-        .json({ status: 'error', message: 'Missing request object.' });
-    }
-
     const answerData: AnswerData = req.body;
 
     if (
@@ -88,7 +82,7 @@ export class AnswerController {
     } else {
       res.status(404).json({
         status: 'fail',
-        message: 'Answer deletion failed!',
+        message: 'Answer deletion failed.',
         data: {
           id: answerId,
         },
@@ -117,7 +111,7 @@ export class AnswerController {
     } else {
       res.status(404).json({
         status: 'fail',
-        message: 'Answer edit failed!',
+        message: 'Answer update failed.',
         data: {
           id: answerId,
         },
