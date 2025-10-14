@@ -1,12 +1,14 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-    "module": "nodenext",
+    "module": "NodeNext",
     "rootDir": ".",
     "outDir": "./dist",
     "strict": true,
     "esModuleInterop": true,
-
-    "types": ["vitest/globals", "node", "express"]
-  }
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true
+  },
+  "include": ["src/**/*"],
+  "exclude": ["src/**/*.test.ts", "src/**/*.spec.ts", "vitest.config.ts"]
 }
