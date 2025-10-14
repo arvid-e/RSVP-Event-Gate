@@ -2,21 +2,18 @@ services:
 
   # --- MongoDB Service ---
   mongo: 
-    image: mongo:8.0 
-                    
+    image: mongo:8.0         
     container_name: rsvp-mongodb
     ports:
       - "27017:27017"
     environment:
-      - MONGO_INITDB_DATABASE=schedule_db
+      - MONGO_INITDB_DATABASE=rsvp_db
     volumes:
-
       - mongodb_data:/data/db
 
   # --- Node.js Server Service ---
   server:
     build: ./server 
-                    
     container_name: rsvp-server 
     ports:
       - "3000:3000"
@@ -29,10 +26,7 @@ services:
       - "BCRYPT_SALT_ROUNDS=${BCRYPT_SALT_ROUNDS}"
     volumes:
       - ./server:/app
-      - /app/node_modules
-    command: npm run dev 
-                         
-                        
+    command: npm run dev        
     depends_on:
       - mongo 
 
