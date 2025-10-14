@@ -47,7 +47,7 @@ beforeEach(() => {
 });
 
 describe('getAllAnswers()', async () => {
-  it('should fetch all answers and return a 201 success response', async () => {
+  it('should fetch all answers and return a 200 success response', async () => {
     mockAnswerService.getAllAnswers.mockResolvedValue(
       mockAnswers as AnswerDataDocument[]
     );
@@ -69,7 +69,7 @@ describe('getAllAnswers()', async () => {
   });
 
   describe('createAnswer()', () => {
-    it('should create an answer and return a 200 success response', async () => {
+    it('should create an answer and return a 201 success response', async () => {
      
       mockReq.body = mockUpdateData;
       mockAnswerService.createAnswer.mockResolvedValue(mockUpdateData as AnswerDataDocument);
@@ -91,7 +91,7 @@ describe('getAllAnswers()', async () => {
   });
 
   describe('getAnswerById()', () => {
-    it('should fetch one answer and return a 200 success response', async () => {
+    it('should fetch one answer and return a 201 success response', async () => {
       const mockId = 'valid-id-123';
       mockReq.params = { id: mockId };
 
@@ -111,6 +111,55 @@ describe('getAllAnswers()', async () => {
         status: 'success',
         message: 'Answer fetched successfully!',
         data: { answer: mockAnswers[0] },
+      });
+      expect(mockNext).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('deleteAnswer()', () => {
+    it('should delete one answer and return a 200 success response', async () => {
+      const mockId = 'valid-id-123';
+      mockReq.params = { id: mockId };
+
+      mockAnswerService.deleteAnswer.mockResolvedValue(true);
+
+      await answerController.deleteAnswer(
+        mockReq as Request,
+        mockRes as Response,
+        mockNext
+      );
+
+      expect(mockAnswerService.deleteAnswer).toHaveBeenCalledWith(mockId);
+      expect(mockRes.status).toHaveBeenCalledWith(200);
+      expect(mockRes.json).toHaveBeenCalledWith({
+        status: 'success',
+        message: 'Answer deleted successfully!',
+        data: { "id": mockId },
+      });
+      expect(mockNext).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('updateAnswer()', () => {
+    it('should update one answer and return a 200 success response', async () => {
+      const mockId = 'valid-id-123';
+      mockReq.params = { id: mockId };
+      mockReq.body = mockUpdateData;
+
+      mockAnswerService.updateAnswer.mockResolvedValue(true);
+
+      await answerController.updateAnswer(
+        mockReq as Request,
+        mockRes as Response,
+        mockNext
+      );
+
+      expect(mockAnswerService.updateAnswer).toHaveBeenCalledWith(mockUpdateData);
+      expect(mockRes.status).toHaveBeenCalledWith(200);
+      expect(mockRes.json).toHaveBeenCalledWith({
+        status: 'success',
+        message: 'Answer updated successfully!',
+        data: { "id": mockId },
       });
       expect(mockNext).not.toHaveBeenCalled();
     });

@@ -109,7 +109,7 @@ export class AnswerController {
     if (edited) {
       res.status(200).json({
         status: 'success',
-        message: 'Answer edited successfully!',
+        message: 'Answer updated successfully!',
         data: {
           id: answerId,
         },
