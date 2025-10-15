@@ -48,6 +48,7 @@ export class AnswerController {
       !answerData ||
       !answerData.name ||
       !answerData.email ||
+      !answerData.password ||
       !answerData.date
     ) {
       res.status(400).json({

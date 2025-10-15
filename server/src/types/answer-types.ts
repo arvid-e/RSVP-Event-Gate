@@ -3,6 +3,7 @@ import { Document } from 'mongoose';
 export interface AnswerData {
   name: string;
   email: string;
+  password: string;
   link?: string;
   date: string;
 }
