@@ -1,4 +1,4 @@
-import type { ChangeEvent } from 'react';
+import type { ChangeEvent, FormEvent } from 'react';
 import { useState } from 'react';
 import styles from './AnswerForm.module.css';
 
@@ -6,16 +6,16 @@ interface FormState {
   name: string;
   email: string;
   password: string;
-  link: string;
+  link?: string;
   date: string;
 }
 
 const initialFormState: FormState = {
-  name: "",
-  email: "",
-  password: "",
-  link: "",
-  date: ""
+  name: '',
+  email: '',
+  password: '',
+  link: '',
+  date: '',
 };
 
 function AnswerForm() {
@@ -24,70 +24,120 @@ function AnswerForm() {
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;
 
-    setFormState(prev => {
+    setFormState((prev) => {
       const newState = {
         ...prev,
         [name]: value,
       };
-      
+
       return newState;
     });
   }
 
-  const { name, email, password, link } = formState;
+  async function handleSubmit(e: FormEvent) {
+    e.preventDefault();
+
+    try {
+      const response = await fetch('/answers', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formState),
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        console.log('Form submitted successfully! Result:', result);
+
+      } else {
+        const errorData = await response.json();
+        
+        console.error(
+          'Submission failed with status:',
+          response.status,
+          'Error Data:',
+          errorData || response.statusText
+        );
+      }
+    } catch (error) {
+      console.error('Network error during submission:', error);
+    }
+
+    setFormState(initialFormState);
+  }
+
+  const { name, email, password, link, date } = formState;
 
   return (
-    <form id={styles['answer-form']}>
+    <form id={styles['answer-form']} onSubmit={handleSubmit}>
       <h3>Answer Form</h3>
 
-      <label htmlFor='name' className={styles['answer-form-label']}>
+      <label htmlFor="name" className={styles['answer-form-label']}>
         Name
       </label>
-        <input className={styles['answer-form-input']}
-          name='name'
-          id='name'
-          type="text" 
-          value={name}
-          onChange={handleChange}
-        />
+      <input
+        className={styles['answer-form-input']}
+        name="name"
+        id="name"
+        type="text"
+        value={name}
+        onChange={handleChange}
+      />
 
-      <label htmlFor='email' className={styles['answer-form-label']}>
+      <label htmlFor="email" className={styles['answer-form-label']}>
         Email
       </label>
-        <input className={styles['answer-form-input']}
-          name='email'
-          id='email'
-          type="text" 
-          value={email}
-          onChange={handleChange}
-        />
-      
+      <input
+        className={styles['answer-form-input']}
+        name="email"
+        id="email"
+        type="text"
+        value={email}
+        onChange={handleChange}
+      />
 
-      <label htmlFor='password' className={styles['answer-form-label']}>
+      <label htmlFor="password" className={styles['answer-form-label']}>
         Password
       </label>
-        <input className={styles['answer-form-input']}
-          name='password'
-          id='password'
-          type="text" 
-          value={password}
-          onChange={handleChange}
-        />
-      
+      <input
+        className={styles['answer-form-input']}
+        name="password"
+        id="password"
+        type="text"
+        value={password}
+        onChange={handleChange}
+      />
 
-      <label htmlFor='link' className={styles['answer-form-label']}>
+      <label htmlFor="link" className={styles['answer-form-label']}>
         Link
       </label>
-        <input className={styles['answer-form-input']}
-          name='link'
-          id='link'
-          type="text" 
-          value={link}
-          onChange={handleChange}
-        />
+      <input
+        className={styles['answer-form-input']}
+        name="link"
+        id="link"
+        type="text"
+        value={link}
+        onChange={handleChange}
+      />
 
+      <label htmlFor="date" className={styles['answer-form-label']}>
+        Date
+      </label>
+      <input
+        className={styles['answer-form-input']}
+        name="date"
+        id="date"
+        type="date"
+        value={date}
+        onChange={handleChange}
+      />
+
+      <button type="submit" className="answer-form-input">
+        Submit Answer
+      </button>
     </form>
-  )
+  );
 }
 
 export default AnswerForm;
