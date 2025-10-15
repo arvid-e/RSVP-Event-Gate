@@ -1,0 +1,16 @@
+
+#answer-form {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.answer-form-label {
+    display: flex;
+}
+
+.answer-form-input {
+    margin-bottom: 25px;
+}
+
+

@@ -1,4 +1,4 @@
-
+import styles from './AnswerForm.module.css'
 import { useState } from 'react';
 
 function AnswerForm() {
@@ -16,40 +16,51 @@ function AnswerForm() {
   }
 
   return (
-    <form id='answer-form'>
-      <label className='form-labels'>Name
-        <input
+    <form id={styles['answer-form']}>
+      <h3>Answer Form</h3>
+
+      <label htmlFor='name' className={styles['answer-form-label']}>
+        Name
+      </label>
+        <input className={styles['answer-form-input']}
+          id='name'
           type="text" 
           value={name}
           onChange={handleChange}
         />
-      </label>
 
-      <label className='form-labels'>Email
-        <input
+      <label htmlFor='email' className={styles['answer-form-label']}>
+        Email
+      </label>
+        <input className={styles['answer-form-input']}
+          id='email'
           type="text" 
           value={email}
           onChange={handleChange}
         />
-      </label>
+      
 
-      <label className='form-labels'>Password
-        <input
+      <label htmlFor='password' className={styles['answer-form-label']}>
+        Password
+      </label>
+        <input className={styles['answer-form-input']}
+          id='password'
           type="text" 
           value={password}
           onChange={handleChange}
         />
-      </label>
+      
 
-      <label className='form-labels'>Link
-        <input
+      <label htmlFor='link' className={styles['answer-form-label']}>
+        Link
+      </label>
+        <input className={styles['answer-form-input']}
+          id='link'
           type="text" 
           value={link}
           onChange={handleChange}
         />
-      </label>
 
-      
     </form>
   )
 }
