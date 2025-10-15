@@ -1,39 +1,12 @@
 import type { ChangeEvent, FormEvent } from 'react';
 import { useState } from 'react';
+import type { FormState, ValidationState } from '../../utils/answer-form-data';
+import {
+  initialFormState,
+  initialValidationState,
+} from '../../utils/answer-form-data';
 import { validateField } from '../../utils/validation';
 import styles from './AnswerForm.module.css';
-
-interface FormState {
-  name: string;
-  email: string;
-  password: string;
-  link?: string;
-  date: string;
-}
-
-interface ValidationState {
-  name: boolean | null;
-  email: boolean | null;
-  password: boolean | null;
-  link?: boolean | null;
-  date: boolean | null;
-}
-
-const initialFormState: FormState = {
-  name: '',
-  email: '',
-  password: '',
-  link: '',
-  date: '',
-};
-
-const initialValidationState: ValidationState = {
-  name: null,
-  email: null,
-  password: null,
-  link: null,
-  date: null,
-};
 
 function AnswerForm() {
   const [formState, setFormState] = useState<FormState>(initialFormState);
