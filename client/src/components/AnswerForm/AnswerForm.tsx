@@ -1,5 +1,6 @@
 import type { ChangeEvent, FormEvent } from 'react';
 import { useState } from 'react';
+import { validateField } from '../../utils/validation';
 import styles from './AnswerForm.module.css';
 
 interface FormState {
@@ -10,6 +11,14 @@ interface FormState {
   date: string;
 }
 
+interface ValidationState {
+  name: boolean | null;
+  email: boolean | null;
+  password: boolean | null;
+  link?: boolean | null;
+  date: boolean | null;
+}
+
 const initialFormState: FormState = {
   name: '',
   email: '',
@@ -18,8 +27,19 @@ const initialFormState: FormState = {
   date: '',
 };
 
+const initialValidationState: ValidationState = {
+  name: null,
+  email: null,
+  password: null,
+  link: null,
+  date: null,
+};
+
 function AnswerForm() {
   const [formState, setFormState] = useState<FormState>(initialFormState);
+  const [validationState, setValidationState] = useState<ValidationState>(
+    initialValidationState
+  );
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;
@@ -32,6 +52,13 @@ function AnswerForm() {
 
       return newState;
     });
+
+    const isValid = validateField(name, value);
+
+    setValidationState((prev) => ({
+      ...prev,
+      [name]: isValid,
+    }));
   }
 
   async function handleSubmit(e: FormEvent) {
@@ -49,10 +76,9 @@ function AnswerForm() {
       if (response.ok) {
         const result = await response.json();
         console.log('Form submitted successfully! Result:', result);
-
       } else {
         const errorData = await response.json();
-        
+
         console.error(
           'Submission failed with status:',
           response.status,
