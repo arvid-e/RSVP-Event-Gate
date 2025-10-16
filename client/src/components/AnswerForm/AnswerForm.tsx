@@ -8,7 +8,6 @@ import {
 import { validateField } from '../../utils/validation';
 import styles from './AnswerForm.module.css';
 
-
 function AnswerForm() {
   const [formState, setFormState] = useState<FormState>(initialFormState);
   const [validationState, setValidationState] = useState<ValidationState>(
@@ -16,7 +15,7 @@ function AnswerForm() {
   );
 
   function getInputClassName(fieldName: keyof ValidationState): string {
-    const isValid = validationState[fieldName]; 
+    const isValid = validationState[fieldName];
 
     let className = styles['answer-form-input'];
 
@@ -24,10 +23,25 @@ function AnswerForm() {
       className += ` ${styles['answer-form-invalid-input']}`;
     } else if (isValid === true) {
       className += ` ${styles['answer-form-valid-input']}`;
-
     }
 
-    return className; 
+    return className;
+  }
+
+  function getSubmitButtonClassName() {
+    let className = styles['answer-form-submit-button'];
+
+    const formIsValid = Object.values(validationState).every(
+      (fieldValidState) => fieldValidState === true
+    );
+
+    if (formIsValid) {
+      className += ` ${styles['answer-form-submit-button-valid']}`; 
+    } else {
+      className += ` ${styles['answer-form-submit-button-invalid']}`; 
+    }
+
+    return className;
   }
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
@@ -52,11 +66,17 @@ function AnswerForm() {
 
       return newState;
     });
-
   }
+
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
+
+    for (const field of Object.values(validationState)) {
+      if (field !== true) {
+        return;
+      }
+    }
 
     try {
       const response = await fetch('/answers', {
@@ -153,7 +173,7 @@ function AnswerForm() {
         onChange={handleChange}
       />
 
-      <button type="submit" className="answer-form-input">
+      <button type="submit" className={getSubmitButtonClassName()}>
         Submit Answer
       </button>
     </form>

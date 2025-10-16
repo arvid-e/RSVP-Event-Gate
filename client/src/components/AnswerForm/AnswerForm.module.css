@@ -7,6 +7,11 @@
 
 }
 
+input:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgb(178, 178, 180); 
+}
+
 .answer-form-label {
     display: flex;
 }
@@ -21,6 +26,18 @@
 }
 
 .answer-form-input.answer-form-valid-input {
+    border: solid green 3px;
+}
+
+.answer-form-submit-button {
+    border: solid black 1px;
+}
+
+.answer-form-submit-button.answer-form-submit-button-invalid {
+    border: solid red 3px;
+}
+
+.answer-form-submit-button.answer-form-submit-button-valid {
     border: solid green 3px;
 }
 
