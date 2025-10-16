@@ -13,6 +13,10 @@ const eventSchema = new Schema<EventDataDocument>(
         ref: 'Answer',
       },
     ],
+    attendees: {
+      type: [String],
+      default: [],
+    },
     date: {
       type: String,
       required: true,

@@ -4,6 +4,7 @@ import { AnswerData } from './answer-types';
 export interface EventData {
   name: string;
   answers: AnswerData[];
+  attendees: string[];
   date: string;
 }
 
