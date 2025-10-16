@@ -14,11 +14,16 @@ export class MongoDBEventRepository implements EventRepository {
   }
 
   async findEventById(id: string): Promise<EventDataDocument | null> {
-    const event = await this.eventModel.findById(id);
-    if (event) {
-      return event.toObject();
+    const event = await this.eventModel
+      .findById(id)
+      .populate('answers')
+      .exec();
+
+    if (!event) {
+      return null;
     }
-    return event;
+
+    return event.toObject() as EventDataDocument;
   }
 
   async createEvent(eventData: EventData): Promise<EventDataDocument> {

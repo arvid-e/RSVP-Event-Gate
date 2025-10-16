@@ -2,9 +2,10 @@ import { Document } from 'mongoose';
 import { AnswerData } from './answer-types';
 
 export interface EventData {
+  formConfigId: string; 
   name: string;
-  answers: AnswerData[];
-  attendees: string[];
+  answers?: AnswerData[];
+  attendees?: string[];
   date: string;
 }
 

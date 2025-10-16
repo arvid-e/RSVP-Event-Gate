@@ -7,6 +7,10 @@ const eventSchema = new Schema<EventDataDocument>(
       type: String,
       required: true, 
     },
+    formConfigId: { 
+      type: String,
+      required: true,
+    },
     answers: [
       {
         type: Schema.Types.ObjectId,
