@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { AnswerController } from '../controllers/answer-controller';
 import AnswerModel from '../models/answer-model';
-import { MongoDBAnswerRepository } from '../repositories/mongodb-repository';
+import { MongoDBAnswerRepository } from '../repositories/mongodb-answer-repository';
 import { AnswerServiceImp } from '../services/answer-service';
 
 const router = Router();
