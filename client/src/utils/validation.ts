@@ -12,7 +12,7 @@ const passwordValidator = new PasswordValidator();
 const urlValidator = new UrlValidator();
 const dateValidator = new DateValidator();
 
-export function validateField(fieldName: string, value: string) {
+export function validateField(fieldName: string, value: string): boolean {
   switch (fieldName) {
     case 'email':
       return emailValidator.isValidEmail(value);

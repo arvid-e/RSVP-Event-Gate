@@ -8,14 +8,41 @@ import {
 import { validateField } from '../../utils/validation';
 import styles from './AnswerForm.module.css';
 
+
 function AnswerForm() {
   const [formState, setFormState] = useState<FormState>(initialFormState);
   const [validationState, setValidationState] = useState<ValidationState>(
     initialValidationState
   );
 
+  function getInputClassName(fieldName: keyof ValidationState): string {
+    const isValid = validationState[fieldName]; 
+
+    let className = styles['answer-form-input'];
+
+    if (isValid === false) {
+      className += ` ${styles['answer-form-invalid-input']}`;
+    } else if (isValid === true) {
+      className += ` ${styles['answer-form-valid-input']}`;
+
+    }
+
+    return className; 
+  }
+
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;
+
+    let isValid: boolean | null = validateField(name, value);
+
+    if (value.length < 1) {
+      isValid = null;
+    }
+
+    setValidationState((prev) => ({
+      ...prev,
+      [name]: isValid,
+    }));
 
     setFormState((prev) => {
       const newState = {
@@ -26,12 +53,6 @@ function AnswerForm() {
       return newState;
     });
 
-    const isValid = validateField(name, value);
-
-    setValidationState((prev) => ({
-      ...prev,
-      [name]: isValid,
-    }));
   }
 
   async function handleSubmit(e: FormEvent) {
@@ -76,7 +97,7 @@ function AnswerForm() {
         Name
       </label>
       <input
-        className={styles['answer-form-input']}
+        className={getInputClassName('name')}
         name="name"
         id="name"
         type="text"
@@ -88,7 +109,7 @@ function AnswerForm() {
         Email
       </label>
       <input
-        className={styles['answer-form-input']}
+        className={getInputClassName('email')}
         name="email"
         id="email"
         type="text"
@@ -100,10 +121,10 @@ function AnswerForm() {
         Password
       </label>
       <input
-        className={styles['answer-form-input']}
+        className={getInputClassName('password')}
         name="password"
         id="password"
-        type="text"
+        type="password"
         value={password}
         onChange={handleChange}
       />
@@ -112,7 +133,7 @@ function AnswerForm() {
         Link
       </label>
       <input
-        className={styles['answer-form-input']}
+        className={getInputClassName('link')}
         name="link"
         id="link"
         type="text"
@@ -124,7 +145,7 @@ function AnswerForm() {
         Date
       </label>
       <input
-        className={styles['answer-form-input']}
+        className={getInputClassName('date')}
         name="date"
         id="date"
         type="date"

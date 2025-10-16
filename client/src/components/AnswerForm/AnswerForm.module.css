@@ -13,6 +13,15 @@
 
 .answer-form-input {
     margin-bottom: 25px;
+    border: solid black 1px;
+}
+
+.answer-form-input.answer-form-invalid-input {
+    border: solid red 3px;
+}
+
+.answer-form-input.answer-form-valid-input {
+    border: solid green 3px;
 }
 
 
