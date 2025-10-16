@@ -10,8 +10,8 @@ import { AnswerServiceImp } from './answer-service';
 type MockAnswerRepository = Mocked<AnswerRepository>;
 
 const mockAnswers: AnswerData[] = [
-  { name: 'Tester', email: 'tester@test.com', date: '2020/01/01' },
-  { name: 'Tester2', email: 'tester2@test.com', date: '2020/02/02' },
+  { name: 'Tester', email: 'tester@test.com', date: '2020/01/01', password: 'abcABC123///' },
+  { name: 'Tester2', email: 'tester2@test.com', date: '2020/02/02', password: 'abcABC123///' },
 ];
 
 describe('AnswerServiceImp', () => {
@@ -76,6 +76,7 @@ describe('AnswerServiceImp', () => {
       name: 'Tester',
       email: 'tester@test.com',
       date: '2020/01/01',
+      password: 'abcABC123///'
     };
 
     mockRepository.createAnswer.mockResolvedValue(mockAnswer as AnswerDataDocument);
@@ -91,6 +92,7 @@ describe('AnswerServiceImp', () => {
       name: 'Tester',
       email: 'tester@test.com',
       date: '2020/01/01',
+      password: 'abcABC123///'
     };
 
     mockRepository.createAnswer.mockResolvedValue(null);
