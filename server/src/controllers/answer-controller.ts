@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { AnswerServiceImp } from '../services/answer-service';
-import { AnswerData, UpdateAnswerData } from '../types/answer-types';
+import { UpdateAnswerData } from '../types/answer-types';
 import { catchAsync } from '../utils/catch-asynch';
 
 export class AnswerController {
@@ -42,18 +42,23 @@ export class AnswerController {
   });
 
   public createAnswer = catchAsync(async (req: Request, res: Response) => {
-    const answerData: AnswerData = req.body;
+    const eventId = req.params.eventId;
 
+    const answerData = {
+      ...req.body,
+      eventId: eventId,
+    };
     if (
       !answerData ||
       !answerData.name ||
       !answerData.email ||
       !answerData.password ||
-      !answerData.date
+      !answerData.date ||
+      !answerData.eventId
     ) {
       res.status(400).json({
         status: 'error',
-        message: 'Missing required fields in request object.',
+        message: 'Missing required fields or eventId.',
       });
     }
 

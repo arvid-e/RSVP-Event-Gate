@@ -1,21 +1,53 @@
 import { NextFunction, Request, Response } from 'express';
-import { beforeEach, describe, it, expect, Mocked, vi } from 'vitest';
+import { beforeEach, describe, expect, it, Mocked, vi } from 'vitest';
 import { AnswerServiceImp } from '../services/answer-service';
-import { AnswerData, AnswerDataDocument, UpdateAnswerData } from '../types/answer-types';
+import {
+  AnswerData,
+  AnswerDataDocument,
+  UpdateAnswerData,
+} from '../types/answer-types';
 import { AnswerController } from './answer-controller';
 
 type MockAnswerServiceImp = Mocked<AnswerServiceImp>;
 
+const validEventId = 'valid-event-id';
+
 const mockAnswers: AnswerData[] = [
-  { name: 'Tester', email: 'tester@test.com', date: '2020/01/01' },
-  { name: 'Tester2', email: 'tester2@test.com', date: '2020/02/02' },
+  {
+    eventId: validEventId,
+    name: 'Tester',
+    email: 'tester@test.com',
+    password: 'abcABC123##//',
+    date: '2020/01/01',
+  },
+  {
+    eventId: validEventId,
+    name: 'Tester2',
+    email: 'tester2@test.com',
+    password: 'abcABC123##//',
+    date: '2020/02/02',
+  },
 ];
 
 const mockUpdateData: UpdateAnswerData = {
-    _id: 'valid-id-123',
-    name: 'tester',
-    email: 'new@email.com'
-}
+  _id: 'valid-id-123',
+  name: 'tester',
+  email: 'new@email.com',
+};
+
+const mockEventId = 'valid-event-id';
+const mockCreationBody = {
+  eventId: mockEventId,
+  name: 'tester',
+  email: 'test@example.com',
+  password: 'abcABC123##',
+  date: '2025-10-17',
+};
+const mockResponseData = {
+  ...mockCreationBody,
+
+  eventId: mockEventId,
+} as unknown as AnswerDataDocument;
 
 let mockAnswerService: MockAnswerServiceImp;
 let answerController: AnswerController;
@@ -49,7 +81,7 @@ beforeEach(() => {
 describe('getAllAnswers()', async () => {
   it('should fetch all answers and return a 200 success response', async () => {
     mockAnswerService.getAllAnswers.mockResolvedValue(
-      mockAnswers as AnswerDataDocument[]
+      mockAnswers as unknown as AnswerDataDocument[]
     );
 
     await answerController.getAllAnswers(
@@ -70,9 +102,13 @@ describe('getAllAnswers()', async () => {
 
   describe('createAnswer()', () => {
     it('should create an answer and return a 201 success response', async () => {
-     
-      mockReq.body = mockUpdateData;
-      mockAnswerService.createAnswer.mockResolvedValue(mockUpdateData as AnswerDataDocument);
+
+      mockReq.params = { eventId: mockEventId };
+      mockReq.body = mockCreationBody;
+
+      mockAnswerService.createAnswer.mockResolvedValue(
+        mockCreationBody as unknown as AnswerDataDocument
+      );
 
       await answerController.createAnswer(
         mockReq as Request,
@@ -84,7 +120,7 @@ describe('getAllAnswers()', async () => {
       expect(mockRes.json).toHaveBeenCalledWith({
         status: 'success',
         message: 'Answer created successfully!',
-        data: { answer: mockUpdateData },
+        data: { answer: mockResponseData },
       });
       expect(mockNext).not.toHaveBeenCalled();
     });
@@ -96,7 +132,7 @@ describe('getAllAnswers()', async () => {
       mockReq.params = { id: mockId };
 
       mockAnswerService.getAnswerById.mockResolvedValue(
-        mockAnswers[0] as AnswerDataDocument
+        mockAnswers[0] as unknown as AnswerDataDocument
       );
 
       await answerController.getAnswerById(
@@ -156,7 +192,7 @@ describe('getAllAnswers()', async () => {
       expect(mockRes.json).toHaveBeenCalledWith({
         status: 'success',
         message: 'Answer deleted successfully!',
-        data: { "id": mockId },
+        data: { id: mockId },
       });
       expect(mockNext).not.toHaveBeenCalled();
     });
@@ -178,7 +214,7 @@ describe('getAllAnswers()', async () => {
       expect(mockRes.json).toHaveBeenCalledWith({
         status: 'fail',
         message: 'Answer deletion failed.',
-        data: { "id": mockId },
+        data: { id: mockId },
       });
       expect(mockNext).not.toHaveBeenCalled();
     });
@@ -198,12 +234,14 @@ describe('getAllAnswers()', async () => {
         mockNext
       );
 
-      expect(mockAnswerService.updateAnswer).toHaveBeenCalledWith(mockUpdateData);
+      expect(mockAnswerService.updateAnswer).toHaveBeenCalledWith(
+        mockUpdateData
+      );
       expect(mockRes.status).toHaveBeenCalledWith(200);
       expect(mockRes.json).toHaveBeenCalledWith({
         status: 'success',
         message: 'Answer updated successfully!',
-        data: { "id": mockId },
+        data: { id: mockId },
       });
       expect(mockNext).not.toHaveBeenCalled();
     });
@@ -221,12 +259,14 @@ describe('getAllAnswers()', async () => {
         mockNext
       );
 
-      expect(mockAnswerService.updateAnswer).toHaveBeenCalledWith(mockUpdateData);
+      expect(mockAnswerService.updateAnswer).toHaveBeenCalledWith(
+        mockUpdateData
+      );
       expect(mockRes.status).toHaveBeenCalledWith(404);
       expect(mockRes.json).toHaveBeenCalledWith({
         status: 'fail',
         message: 'Answer update failed.',
-        data: { "id": mockId },
+        data: { id: mockId },
       });
       expect(mockNext).not.toHaveBeenCalled();
     });

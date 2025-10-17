@@ -19,12 +19,12 @@ export interface UpdateAnswerData {
 }
 
 export interface AnswerDataDocument extends Document {
+  eventId: Types.ObjectId;
   name: string;
   email: string;
   password: string;
   link?: string;
   date: string;
-  eventId: Types.ObjectId;
 }
 
 export interface AnswerRepository {
