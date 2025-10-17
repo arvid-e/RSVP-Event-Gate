@@ -1,4 +1,4 @@
-import { Document } from 'mongoose';
+import { Document, Types } from 'mongoose';
 
 export interface AnswerData {
   name: string;
@@ -6,19 +6,26 @@ export interface AnswerData {
   password: string;
   link?: string;
   date: string;
+  eventId: string;
 }
 
 export interface UpdateAnswerData {
   _id: string;
   name?: string;
   email?: string;
+  password?: string;
   link?: string;
   date?: string;
 }
 
-export interface AnswerDataDocument
-  extends AnswerData,
-    Document {}
+export interface AnswerDataDocument extends Document {
+  name: string;
+  email: string;
+  password: string;
+  link?: string;
+  date: string;
+  eventId: Types.ObjectId;
+}
 
 export interface AnswerRepository {
   findAllAnswers(): Promise<AnswerDataDocument[]>;

@@ -9,12 +9,20 @@ const answerSchema = new Schema<AnswerDataDocument>(
     email: {
       type: String,
     },
+    password: {
+
+    },
     link: {
       type: String,
     },
     date: {
       type: String,
     },
+    eventId: {
+        type: Schema.Types.ObjectId,
+        ref: 'Event',    
+        required: true
+    }
   },
   {
     timestamps: true,
