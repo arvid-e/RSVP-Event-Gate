@@ -17,28 +17,28 @@ function AnswerForm() {
   function getInputClassName(fieldName: keyof ValidationState): string {
     const isValid = validationState[fieldName];
 
-    let className = styles['answer-form-input'];
+    let className = styles['form-input'];
 
     if (isValid === false) {
-      className += ` ${styles['answer-form-invalid-input']}`;
+      className += ` ${styles['form-invalid-input']}`;
     } else if (isValid === true) {
-      className += ` ${styles['answer-form-valid-input']}`;
+      className += ` ${styles['form-valid-input']}`;
     }
 
     return className;
   }
 
   function getSubmitButtonClassName() {
-    let className = styles['answer-form-submit-button'];
+    let className = styles['form-submit-button'];
 
     const formIsValid = Object.values(validationState).every(
       (fieldValidState) => fieldValidState === true
     );
 
     if (formIsValid) {
-      className += ` ${styles['answer-form-submit-button-valid']}`; 
+      className += ` ${styles['form-submit-button-valid']}`; 
     } else {
-      className += ` ${styles['answer-form-submit-button-invalid']}`; 
+      className += ` ${styles['form-submit-button-invalid']}`; 
     }
 
     return className;
@@ -78,13 +78,20 @@ function AnswerForm() {
       }
     }
 
+    const eventId = '1234567890';
+
+    const submitPayload= {
+      ...formState,
+      eventId
+    }
+
     try {
-      const response = await fetch('/answers', {
+      const response = await fetch(`/answers/${eventId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formState),
+        body: JSON.stringify(submitPayload),
       });
 
       if (response.ok) {
@@ -101,7 +108,7 @@ function AnswerForm() {
         );
       }
     } catch (error) {
-      console.error('Network error during submission:', error);
+      console.error('Error during submission:', error);
     }
 
     setFormState(initialFormState);
@@ -110,10 +117,10 @@ function AnswerForm() {
   const { name, email, password, link, date } = formState;
 
   return (
-    <form id={styles['answer-form']} onSubmit={handleSubmit}>
-      <h3>Answer Form</h3>
+    <form id={styles['form']} onSubmit={handleSubmit}>
+      <h3 className={styles['form-title']}>Answer Form</h3>
 
-      <label htmlFor="name" className={styles['answer-form-label']}>
+      <label htmlFor="name" className={styles['form-label']}>
         Name
       </label>
       <input
@@ -125,7 +132,7 @@ function AnswerForm() {
         onChange={handleChange}
       />
 
-      <label htmlFor="email" className={styles['answer-form-label']}>
+      <label htmlFor="email" className={styles['form-label']}>
         Email
       </label>
       <input
@@ -137,7 +144,7 @@ function AnswerForm() {
         onChange={handleChange}
       />
 
-      <label htmlFor="password" className={styles['answer-form-label']}>
+      <label htmlFor="password" className={styles['form-label']}>
         Password
       </label>
       <input
@@ -149,7 +156,7 @@ function AnswerForm() {
         onChange={handleChange}
       />
 
-      <label htmlFor="link" className={styles['answer-form-label']}>
+      <label htmlFor="link" className={styles['form-label']}>
         Link
       </label>
       <input
@@ -161,7 +168,7 @@ function AnswerForm() {
         onChange={handleChange}
       />
 
-      <label htmlFor="date" className={styles['answer-form-label']}>
+      <label htmlFor="date" className={styles['form-label']}>
         Date
       </label>
       <input

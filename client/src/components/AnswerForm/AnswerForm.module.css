@@ -1,44 +1,89 @@
-
-#answer-form {
-    display: flex;
-    flex-direction: column;
-    border: 1px black solid;
-    padding: 10px;
-
+*, ::before, ::after {
+    box-sizing: border-box;
 }
 
 input:focus {
-    outline: none;
-    box-shadow: 0 0 5px rgb(178, 178, 180); 
+  outline: none;
+  box-shadow: 0 0 5px rgb(178, 178, 180);
 }
 
-.answer-form-label {
-    display: flex;
+#form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  padding: 24px;
+  width: 100%;
+  max-width: 450px;
+}
+.form-title {
+  font-size: 28px;
+  font-weight: 800;
+  color: #4f46e5;
+  margin-bottom: 24px;
 }
 
-.answer-form-input {
-    margin-bottom: 25px;
-    border: solid black 1px;
+.form-label {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 4px;
 }
 
-.answer-form-input.answer-form-invalid-input {
-    border: solid red 3px;
+.form-input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  margin-bottom: 15px;
 }
 
-.answer-form-input.answer-form-valid-input {
-    border: solid green 3px;
+.form-input:focus {
+  border-color: #4f46e5;
+  outline: 0;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
 }
 
-.answer-form-submit-button {
-    border: solid black 1px;
+.form-input.form-invalid-input {
+  border-color: #ef4444;
+  background-color: #fef2f2;
+}
+.form-input.form-valid-input {
+  border-color: #10b981;
+  background-color: #f0fdf4;
 }
 
-.answer-form-submit-button.answer-form-submit-button-invalid {
-    border: solid red 3px;
+.form-submit-button {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  color: #ffffff;
+  transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-top: 24px;
 }
 
-.answer-form-submit-button.answer-form-submit-button-valid {
-    border: solid green 3px;
+.form-submit-button.form-submit-button-valid {
+  background-color: #4f46e5;
+  box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.3);
+}
+.form-submit-button.form-submit-button-valid:hover {
+  background-color: #4338ca;
 }
 
-
+.form-submit-button.form-submit-button-invalid,
+.submit-button[disabled] {
+  background-color: #9ca3af;
+  cursor: not-allowed;
+}

@@ -2,6 +2,7 @@ import './App.css'
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import AnswerForm from './components/AnswerForm/AnswerForm';
+import AttendeeList from './components/AttendeeList/AttendeeList';
 
 
 function App() {
@@ -10,7 +11,10 @@ function App() {
     <>
       <Header/>
 
-      <AnswerForm/>
+      <div className='main'>
+        <AnswerForm/>
+        <AttendeeList/>
+      </div>
 
       <Footer/>
     </>

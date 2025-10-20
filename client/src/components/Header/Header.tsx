@@ -1,14 +1,9 @@
+import styles from './Header.module.css';
 
 function Header() {
     return(
-        <header>
+        <header className={styles['header']}>
             <h1>RSVP Event Gate</h1>
-            <nav>
-                <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Events</a></li>
-                </ul>
-            </nav>
         </header>
     )
 }

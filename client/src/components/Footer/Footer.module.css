@@ -1,0 +1,9 @@
+.footer {
+    display: flex;
+    justify-content: center;
+}
+
+.info {
+    display: flex;
+    gap: 50px;
+}
