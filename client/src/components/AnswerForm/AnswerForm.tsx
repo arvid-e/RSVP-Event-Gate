@@ -118,7 +118,7 @@ function AnswerForm() {
 
   return (
     <form id={styles['form']} onSubmit={handleSubmit}>
-      <h3 className={styles['form-title']}>Answer Form</h3>
+      <span className={styles['form-title']}>Answer Form</span>
 
       <label htmlFor="name" className={styles['form-label']}>
         Name
@@ -169,7 +169,7 @@ function AnswerForm() {
       />
 
       <label htmlFor="date" className={styles['form-label']}>
-        Date
+        Today's Date
       </label>
       <input
         className={getInputClassName('date')}
