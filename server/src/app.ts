@@ -5,7 +5,7 @@ import router from './routes/router';
 export const app = express();
 
 const corsOptions = {
-    origin: 'https://your-frontend-site-name.onrender.com',
+    origin: 'https://rsvp-event-gate.onrender.com/',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
     optionsSuccessStatus: 204
