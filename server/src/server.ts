@@ -13,8 +13,7 @@ const startServer = async () => {
   try {
     await connectDB();
     server = app.listen(port, () => {
-      console.log(`Server running at http://localhost:${port}`);
-      console.log(`Access API at http://localhost:${port}/api`);
+      console.log(`Server running at port: ${port}`);
     });
   } catch (error: unknown) {
     if (isErrorWithMessage(error)) {
