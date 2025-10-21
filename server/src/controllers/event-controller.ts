@@ -22,7 +22,7 @@ export class EventController {
     const eventId = req.params.id;
     const event = await this.eventService.getEventById(eventId);
 
-    if (event == null) {
+    if (!event) {
       res.status(404).json({
         status: 'fail',
         message: 'Event not found.',

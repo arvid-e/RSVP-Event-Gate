@@ -10,18 +10,14 @@ import { AnswerController } from './answer-controller';
 
 type MockAnswerServiceImp = Mocked<AnswerServiceImp>;
 
-const validEventId = 'valid-event-id';
-
 const mockAnswers: AnswerData[] = [
   {
-    eventId: validEventId,
     name: 'Tester',
     email: 'tester@test.com',
     password: 'abcABC123##//',
     date: '2020/01/01',
   },
   {
-    eventId: validEventId,
     name: 'Tester2',
     email: 'tester2@test.com',
     password: 'abcABC123##//',
