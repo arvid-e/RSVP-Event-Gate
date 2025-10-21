@@ -11,7 +11,7 @@ const controller = new AnswerController(answerService);
 
 router.get('/', controller.getAllAnswers);
 
-router.post('/', controller.createAnswer);
+router.post('/:id', controller.createAnswer);
 
 router.get('/:id', controller.getAnswerById);
 

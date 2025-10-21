@@ -19,9 +19,7 @@ const answerSchema = new Schema<AnswerDataDocument>(
       type: String,
     },
     eventId: {
-        type: Schema.Types.ObjectId,
-        ref: 'Event',    
-        required: true
+        type: String,
     }
   },
   {

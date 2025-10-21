@@ -1,4 +1,4 @@
-import { Document, Types } from 'mongoose';
+import { Document } from 'mongoose';
 
 export interface AnswerData {
   name: string;
@@ -19,7 +19,7 @@ export interface UpdateAnswerData {
 }
 
 export interface AnswerDataDocument extends Document {
-  eventId: Types.ObjectId;
+  eventId: string;
   name: string;
   email: string;
   password: string;
