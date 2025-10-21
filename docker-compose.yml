@@ -1,34 +1,23 @@
 services:
 
-  # --- MongoDB Service ---
-  mongo: 
-    image: mongo:8.0         
-    container_name: rsvp-mongodb
-    ports:
-      - "27017:27017"
-    environment:
-      - MONGO_INITDB_DATABASE=rsvp_db
-    volumes:
-      - mongodb_data:/data/db
-
-  # --- Node.js Server Service ---
   server:
-    build: ./server 
+    build: 
+      context: ./server 
     container_name: rsvp-server 
     ports:
-      - "3000:3000"
+      - "3000:3000" 
     environment:
-      - "PORT=${PORT}"
-      - "NODE_ENV=${NODE_ENV:-development}"
+      - "NODE_ENV=production"
+      - "PORT=3000" 
       - "MONGO_URI=${MONGO_URI}"
-      - "JWT_SECRET=${JWT_SECRET}"
-      - "JWT_EXPIRES_IN=${JWT_EXPIRES_IN}"
-      - "BCRYPT_SALT_ROUNDS=${BCRYPT_SALT_ROUNDS}"
-    volumes:
-      - ./server:/app
-    command: npm run dev        
-    depends_on:
-      - mongo 
-
-volumes:
-  mongodb_data:
+    command: npm start 
+    
+  client:
+    build: 
+      context: ./client 
+    container_name: rsvp-client
+    ports:
+      - "80:80" 
+    
+    environment:
+      - "VITE_API_BASE_URL=https://rsvp-event-gate.onrender.com" 
