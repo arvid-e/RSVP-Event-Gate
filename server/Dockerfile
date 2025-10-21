@@ -5,11 +5,11 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 
-USER node 
-
 COPY . .
 
 RUN chown -R node:node /app
+
+USER node
 
 RUN npm run build
 
