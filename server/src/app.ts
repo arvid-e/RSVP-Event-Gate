@@ -1,5 +1,4 @@
 import express from 'express';
-import path from 'path';
 import cors from 'cors';
 import router from './routes/router';
 
@@ -16,8 +15,4 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(router);
-app.use(express.static(path.join(__dirname, '..', '..', 'client', 'build')));
 
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', '..', 'client', 'dist', 'index.html'));
-});

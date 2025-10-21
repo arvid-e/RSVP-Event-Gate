@@ -86,7 +86,7 @@ function AnswerForm() {
     }
 
     try {
-      const response = await fetch(`/answers/${eventId}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/answers/${eventId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

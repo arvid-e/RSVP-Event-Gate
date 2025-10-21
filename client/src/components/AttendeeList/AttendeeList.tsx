@@ -13,7 +13,7 @@ const AttendeeList: React.FC = () => {
   useEffect(() => {
     const fetchAttendees = async () => {
       try {
-        const response = await fetch('/answers', {
+        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/answers`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
