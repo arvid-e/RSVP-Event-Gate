@@ -9,6 +9,8 @@ USER node
 
 COPY . .
 
+RUN chown -R node:node /app
+
 RUN npm run build
 
 EXPOSE 3000
