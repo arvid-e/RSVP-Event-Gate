@@ -1,14 +1,8 @@
 import { List, Mail } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 import styles from './AttendeeList.module.css';
-import type { AnswerResponse, FetchAnswersResponse } from '../../utils/response-types';
+import type { AnswerResponse, FetchAnswersResponse, Attendee } from '../../utils/types';
 
-interface Attendee {
-  id: string;
-  name: string;
-  email: string;
-  link?: string;
-}
 
 const AttendeeList: React.FC = () => {
   const [attendees, setAttendees] = useState<Attendee[]>([]);

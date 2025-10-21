@@ -15,3 +15,10 @@ export interface FetchAnswersResponse {
     answers: AnswerResponse[];
   };
 }
+
+export interface Attendee {
+  id: string;
+  name: string;
+  email: string;
+  link?: string;
+}
