@@ -1,6 +1,7 @@
 import { List, Mail } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 import styles from './AttendeeList.module.css';
+import type { AnswerResponse, FetchAnswersResponse } from '../../utils/response-types';
 
 interface Attendee {
   id: string;
@@ -26,7 +27,7 @@ const AttendeeList: React.FC = () => {
           throw new Error(`Failed to fetch data: HTTP ${response.status}`);
         }
 
-        const responseData: any = await response.json();
+        const responseData: FetchAnswersResponse = await response.json();
 
         if (
           responseData.status !== 'success' ||
@@ -40,10 +41,10 @@ const AttendeeList: React.FC = () => {
           );
         }
 
-        const rawAnswers: any[] = responseData.data.answers;
+        const rawAnswers: AnswerResponse[] = responseData.data.answers;
 
         const mappedAttendees: Attendee[] = rawAnswers.map((item) => ({
-          id: item._id || item.id,
+          id: item._id || item._id,
           name: item.name,
           email: item.email,
         }));
