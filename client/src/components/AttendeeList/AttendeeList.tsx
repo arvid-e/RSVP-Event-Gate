@@ -1,8 +1,11 @@
-import { List, Mail } from 'lucide-react';
+import { List } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
+import type {
+  AnswerResponse,
+  Attendee,
+  FetchAnswersResponse,
+} from '../../utils/types';
 import styles from './AttendeeList.module.css';
-import type { AnswerResponse, FetchAnswersResponse, Attendee } from '../../utils/types';
-
 
 const AttendeeList: React.FC = () => {
   const [attendees, setAttendees] = useState<Attendee[]>([]);
@@ -41,6 +44,8 @@ const AttendeeList: React.FC = () => {
           id: item._id || item._id,
           name: item.name,
           email: item.email,
+          link: item.link,
+          date: item.date,
         }));
 
         setAttendees(mappedAttendees);
@@ -52,10 +57,9 @@ const AttendeeList: React.FC = () => {
     fetchAttendees();
   }, []);
 
-
   return (
     <>
-      <div className={`lg:col-span-1 list-container`}>
+      <div className={styles['list-container']}>
         <h2 className={styles['list-header']}>
           <List className={styles['header-icon']} />
           Attendees ({attendees.length})
@@ -67,22 +71,28 @@ const AttendeeList: React.FC = () => {
                 key={attendee.id || index}
                 className={styles['attendee-item']}
               >
-                <div className={styles["attendee-info-group"]}>
-                  <div className={styles["initial-circle"]}>
-                    {attendee.name[0]?.toUpperCase() || '?'}
-                  </div>
+                <div className={styles['attendee-info-group']}>
                   <div>
-                    <p className={styles["name-text"]}>{attendee.name}</p>
-                    <p className={styles["email-text"]}>
-                      <Mail className={styles["email-icon"]} />
-                      {attendee.email}
+                    <p className={styles['name-text']}>{attendee.name}</p>
+
+                    <p className={styles['email-text']}>🖂
+                      <span className={styles['email-icon']} />
+                      <span className={styles['scroll-content']}>{attendee.email}</span>
                     </p>
+
+                    <p className={styles['link-text']}>🌐
+                      <span className={styles['link-icon']} />
+                      <span className={styles['scroll-content']}>{attendee.link}</span>
+                    </p>
+                    
+                    <p>Answered:</p>
+                    <p className={styles['date-text']}>{attendee.date}</p>
                   </div>
                 </div>
               </div>
             ))
           ) : (
-            <p className={styles["no-registrations-text"]}>
+            <p className={styles['no-registrations-text']}>
               No one has registered yet. Be the first!
             </p>
           )}

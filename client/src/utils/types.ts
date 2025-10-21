@@ -21,4 +21,5 @@ export interface Attendee {
   name: string;
   email: string;
   link?: string;
+  date: string;
 }
