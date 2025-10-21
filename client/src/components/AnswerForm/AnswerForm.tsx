@@ -36,9 +36,9 @@ function AnswerForm() {
     );
 
     if (formIsValid) {
-      className += ` ${styles['form-submit-button-valid']}`; 
+      className += ` ${styles['form-submit-button-valid']}`;
     } else {
-      className += ` ${styles['form-submit-button-invalid']}`; 
+      className += ` ${styles['form-submit-button-invalid']}`;
     }
 
     return className;
@@ -68,7 +68,6 @@ function AnswerForm() {
     });
   }
 
-
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
 
@@ -78,15 +77,17 @@ function AnswerForm() {
       }
     }
 
- 
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/answers/`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formState),
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_BASE_URL}/answers/`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formState),
+        }
+      );
 
       if (response.ok) {
         const result = await response.json();
@@ -163,7 +164,7 @@ function AnswerForm() {
       />
 
       <label htmlFor="date" className={styles['form-label']}>
-        Today's Date
+        Today&apos;s Date
       </label>
       <input
         className={getInputClassName('date')}
