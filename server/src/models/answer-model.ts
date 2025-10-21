@@ -10,7 +10,7 @@ const answerSchema = new Schema<AnswerDataDocument>(
       type: String,
     },
     password: {
-
+      type: String,
     },
     link: {
       type: String,
@@ -18,9 +18,6 @@ const answerSchema = new Schema<AnswerDataDocument>(
     date: {
       type: String,
     },
-    eventId: {
-        type: String,
-    }
   },
   {
     timestamps: true,

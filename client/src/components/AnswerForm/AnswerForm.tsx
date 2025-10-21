@@ -78,20 +78,14 @@ function AnswerForm() {
       }
     }
 
-    const eventId = '1234567890';
-
-    const submitPayload= {
-      ...formState,
-      eventId
-    }
-
+ 
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/answers/${eventId}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/answers/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(submitPayload),
+        body: JSON.stringify(formState),
       });
 
       if (response.ok) {

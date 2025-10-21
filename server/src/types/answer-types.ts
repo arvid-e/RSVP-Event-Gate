@@ -6,7 +6,6 @@ export interface AnswerData {
   password: string;
   link?: string;
   date: string;
-  eventId: string;
 }
 
 export interface UpdateAnswerData {
