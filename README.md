@@ -61,6 +61,16 @@ Set up your MongoDB configuration in your environment variables.
 
 `npm start`
 
+## Running example
+
+**In order to access the database and the backend, visit the backend url and let it load.**
+
+**Frontend:**  
+https://rsvp-event-gate-1.onrender.com/
+
+**Backend:**  
+https://rsvp-event-gate.onrender.com/
+
 
 ##  License
 
