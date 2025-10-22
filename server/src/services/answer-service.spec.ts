@@ -26,6 +26,7 @@ describe('AnswerServiceImp', () => {
       findAnswerById: vi.fn(),
       createAnswer: vi.fn(),
       deleteAnswer: vi.fn(),
+      deleteAllAnswers: vi.fn(),
       updateAnswer: vi.fn(),
     };
 

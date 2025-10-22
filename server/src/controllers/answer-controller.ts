@@ -42,23 +42,19 @@ export class AnswerController {
   });
 
   public createAnswer = catchAsync(async (req: Request, res: Response) => {
-    const eventId = req.params.eventId;
-
     const answerData = {
       ...req.body,
-      eventId: eventId,
     };
     if (
       !answerData ||
       !answerData.name ||
       !answerData.email ||
       !answerData.password ||
-      !answerData.date ||
-      !answerData.eventId
+      !answerData.date 
     ) {
       res.status(400).json({
         status: 'error',
-        message: 'Missing required fields or eventId.',
+        message: 'Missing required fields.',
       });
     }
 
@@ -92,6 +88,22 @@ export class AnswerController {
         data: {
           id: answerId,
         },
+      });
+    }
+  });
+
+  public deleteAllAnswers = catchAsync(async (req: Request, res: Response) => {
+    const deleted = await this.answerService.deleteAllAnswers();
+
+    if (deleted) {
+      res.status(200).json({
+        status: 'success',
+        message: 'All answers deleted successfully!',
+      });
+    } else {
+      res.status(404).json({
+        status: 'fail',
+        message: 'Answer deletion failed.',
       });
     }
   });

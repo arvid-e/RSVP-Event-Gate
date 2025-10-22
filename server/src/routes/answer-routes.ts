@@ -19,4 +19,6 @@ router.patch('/:id', controller.updateAnswer);
 
 router.delete('/:id', controller.deleteAnswer);
 
+router.delete('/', controller.deleteAllAnswers);
+
 export default router;

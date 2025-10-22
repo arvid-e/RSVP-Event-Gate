@@ -18,7 +18,6 @@ export interface UpdateAnswerData {
 }
 
 export interface AnswerDataDocument extends Document {
-  eventId: string;
   name: string;
   email: string;
   password: string;
@@ -31,6 +30,7 @@ export interface AnswerRepository {
   findAnswerById(id: string): Promise<AnswerDataDocument | null>;
   createAnswer(answerData: AnswerData): Promise<AnswerDataDocument | null>;
   deleteAnswer(id: string): Promise<boolean>;
+  deleteAllAnswers(): Promise<boolean>;
   updateAnswer(answerData: UpdateAnswerData): Promise<boolean>;
 }
 

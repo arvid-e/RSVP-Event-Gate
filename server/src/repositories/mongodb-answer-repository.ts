@@ -31,6 +31,11 @@ export class MongoDBAnswerRepository implements AnswerRepository {
     return deleted.deletedCount > 0;
   }
 
+  async deleteAllAnswers(): Promise<boolean> {
+    const deleted = await this.answerModel.deleteMany();
+    return deleted.deletedCount > 0;
+  }
+
   async updateAnswer(answerData: UpdateAnswerData): Promise<boolean> {
     const { _id, ...updateFields } = answerData;
     const updated = await this.answerModel.updateOne(

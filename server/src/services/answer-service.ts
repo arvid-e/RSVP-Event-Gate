@@ -25,6 +25,10 @@ export class AnswerServiceImp implements AnswerService {
     return this.answerRepository.deleteAnswer(id);
   }
 
+  async deleteAllAnswers(): Promise<boolean> {
+    return this.answerRepository.deleteAllAnswers();
+  }
+
   async updateAnswer(answerData: UpdateAnswerData): Promise<boolean> {
     return this.answerRepository.updateAnswer(answerData);
   }
