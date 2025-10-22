@@ -17,12 +17,15 @@ function App() {
 
   const fetchAttendees = async () => {
     try {
-      const response = await fetch('/answers', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_BASE_URL}/answers/`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
 
       if (!response.ok) {
         throw new Error(`Failed to fetch data: HTTP ${response.status}`);
@@ -76,12 +79,15 @@ function App() {
     setError(null);
 
     try {
-      const response = await fetch('/answers', {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_BASE_URL}/answers/`,
+        {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -108,9 +114,7 @@ function App() {
           <AnswerForm />
           <AttendeeList attendees={attendees} />
         </div>
-        <EventResetButton
-          onEventReset={handleEventReset}
-        />
+        <EventResetButton onEventReset={handleEventReset} />
         <Footer />
       </div>
     </>
