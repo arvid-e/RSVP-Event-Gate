@@ -1,62 +1,13 @@
 import { List } from 'lucide-react';
-import React, { useEffect, useState } from 'react';
-import type {
-  AnswerResponse,
-  Attendee,
-  FetchAnswersResponse,
-} from '../../utils/types';
+import React from 'react';
+import type { Attendee } from '../../utils/types';
 import styles from './AttendeeList.module.css';
 
-const AttendeeList: React.FC = () => {
-  const [attendees, setAttendees] = useState<Attendee[]>([]);
+interface AttendeeListProps {
+  attendees: Attendee[];
+}
 
-  useEffect(() => {
-    const fetchAttendees = async () => {
-      try {
-        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/answers`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
-
-        if (!response.ok) {
-          throw new Error(`Failed to fetch data: HTTP ${response.status}`);
-        }
-
-        const responseData: FetchAnswersResponse = await response.json();
-
-        if (
-          responseData.status !== 'success' ||
-          !responseData.data ||
-          !responseData.data.answers
-        ) {
-          throw new Error(
-            `Invalid response format from server: Server returned status: ${
-              responseData.status || 'Unknown'
-            }`
-          );
-        }
-
-        const rawAnswers: AnswerResponse[] = responseData.data.answers;
-
-        const mappedAttendees: Attendee[] = rawAnswers.map((item) => ({
-          id: item._id || item._id,
-          name: item.name,
-          email: item.email,
-          link: item.link,
-          date: item.date,
-        }));
-
-        setAttendees(mappedAttendees);
-      } catch (err) {
-        console.error('Error:', err);
-      }
-    };
-
-    fetchAttendees();
-  }, []);
-
+const AttendeeList: React.FC<AttendeeListProps> = ({ attendees }) => {
   return (
     <>
       <div className={styles['list-container']}>
@@ -75,16 +26,22 @@ const AttendeeList: React.FC = () => {
                   <div>
                     <p className={styles['name-text']}>{attendee.name}</p>
 
-                    <p className={styles['email-text']}>🖂
+                    <p className={styles['email-text']}>
+                      🖂
                       <span className={styles['email-icon']} />
-                      <span className={styles['scroll-content']}>{attendee.email}</span>
+                      <span className={styles['scroll-content']}>
+                        {attendee.email}
+                      </span>
                     </p>
 
-                    <p className={styles['link-text']}>🌐
+                    <p className={styles['link-text']}>
+                      🌐
                       <span className={styles['link-icon']} />
-                      <span className={styles['scroll-content']}>{attendee.link}</span>
+                      <span className={styles['scroll-content']}>
+                        {attendee.link}
+                      </span>
                     </p>
-                    
+
                     <p>Answered:</p>
                     <p className={styles['date-text']}>{attendee.date}</p>
                   </div>

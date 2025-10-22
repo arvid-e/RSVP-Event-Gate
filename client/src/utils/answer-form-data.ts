@@ -4,7 +4,6 @@ export interface FormState {
   password: string;
   link?: string;
   date: string;
-  eventId: string;
 }
 
 export interface ValidationState {
@@ -21,7 +20,6 @@ export const initialFormState: FormState = {
   password: '',
   link: '',
   date: '',
-  eventId: ''
 };
 
 export const initialValidationState: ValidationState = {

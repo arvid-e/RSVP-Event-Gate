@@ -78,8 +78,9 @@ function AnswerForm() {
     }
 
     try {
+      // ${import.meta.env.VITE_API_BASE_URL}/answers/
       const response = await fetch(
-        `${import.meta.env.VITE_API_BASE_URL}/answers/`,
+        `/answers`,
         {
           method: 'POST',
           headers: {

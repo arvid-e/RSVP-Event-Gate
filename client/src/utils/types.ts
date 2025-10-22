@@ -5,7 +5,6 @@ export interface AnswerResponse {
   password?: string;
   link?: string;
   date: string;
-  eventId: string;
 }
 
 export interface FetchAnswersResponse {
